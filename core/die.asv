@@ -1,0 +1,36 @@
+classdef die 
+% DIE - Represents a single kismet die to be rolled. 
+% 
+%
+% Properties:
+%   - Value: the currently stored value rolled by function rollDie()
+%   - Color: the current color based on the Value 
+%
+% Functions:
+%   - rollDie(): stores a random value between 1-6 in the instance of the
+%   Die object
+
+    properties (GetAccess = public, SetAccess = protected)
+        Value;
+    end 
+    
+    properties (Dependent)
+        Color;
+    end
+    
+    %Roll functions
+    methods      
+        function obj = die()
+            obj.Value = [];
+        end
+        
+        function obj = rollDie(obj)
+            obj.Value = randi(6);
+        end
+        
+        function color = get.Color(obj)
+            color = colors.checkColor(obj.Value);
+        end
+    end
+end 
+
