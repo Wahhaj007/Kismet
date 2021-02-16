@@ -35,5 +35,6 @@ classdef die
             color = colors.checkColor(obj.Value);
         end
     end
+    
 end 
 
