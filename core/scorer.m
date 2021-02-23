@@ -18,7 +18,7 @@ classdef Scorer
 %
     properties (GetAccess = private)
         diceValues;
-        diceColors = colors;
+        diceColors;
     end
     
     properties (Dependent)
@@ -45,7 +45,7 @@ classdef Scorer
     
     %Individual Scoring Sections
     %Public for testing prior to all 
-    methods (Access = public)
+    methods 
         %Basic section
         function basicSection = scoreBasicSection(obj)
             %TODO: Wahhaj
@@ -74,7 +74,7 @@ classdef Scorer
         
         function fullHouseScore = scoreFullHouse(obj)
             %TODO: Koby
-            uniques = unique(vals.diceValues);
+            uniques = unique(obj.diceValues);
             
             test = (length(uniques) == 2);
             counts = sort(countOccurences(uniques, obj.diceValues));
@@ -92,10 +92,10 @@ classdef Scorer
             uniqueColors = unique(obj.diceColors);
             
             test = (length(uniqueVal) == 2) && (length(uniqueColors) == 1);
-            counts = sort(countOccurences(uniques,vals));
+            counts = sort(countOccurences(uniqueVal, obj.diceValues));
             
             if(test && (all(counts == [2, 3])))
-                fullHouseSameColorScore = sum(vals) + 20;
+                fullHouseSameColorScore = sum(obj.diceValues) + 20;
             else 
                 fullHouseSameColorScore = -1;
             end
@@ -117,15 +117,6 @@ classdef Scorer
         function kismetScore = scoreKismet(obj)
             %TODO: Koby
             kismetScore = [];
-        end
-        
-        function count = countOccurences(A, B)
-            %Count occurences of A in B.
-            count = zeros(1, length(A));
-            
-            for i = 1:length(count)
-                count(i) = sum(ismember(A(i), B));
-            end
         end
     end
 end
