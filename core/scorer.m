@@ -5,16 +5,10 @@ classdef Scorer
 % Last updated by Koby Taswell on 2/22/2021
 %
 % Properties:
-%   - diceToScore: Holds the 
-%   - basicSection: Holds the basic section scores for each category
-%   - basicBonus: The added bonus scores based on sum of basicSection
-%   - kismetSection: Holds the kismet section scores for each category
-%   - totalScore: Calculates the sum of all individual scores
+%   - diceValues: values of input dice
+%   - diceColors: colors of input dice
+%   - scores: 1x15 array of all scores
 %
-% Functions:
-%   - scorecard(): default constructor
-%   - CalculateBasicBonus(): returns a basicBonus based on the sum of
-%   basicSection
 %
     properties (GetAccess = private)
         diceValues;
