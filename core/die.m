@@ -23,8 +23,13 @@ classdef die
     
     %Roll functions
     methods      
-        function obj = die()
-            obj.Value = [];
+        function obj = die(Value)
+            if(nargin == 0)
+                obj.Value = [];
+            elseif(nargin == 1) 
+                %For testing purposes only
+                obj.Value = Value;
+            end
         end
         
         function obj = rollDie(obj)

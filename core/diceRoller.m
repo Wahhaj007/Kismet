@@ -2,7 +2,7 @@ classdef diceRoller < handle
 % Class - DICEROLLER: a handle variable which collects a set of dice for kismet and allows a player to roll the dice that they wish to roll.
 %    
 % Created by Koby Taswell on 2/15/2021
-% Last updated by Koby Taswell on 2/15/2021
+% Last updated by Koby Taswell on 2/22/2021
 %
 % Properties:
 %   - rollCount: the current number of rolls performed by the diceRoller
@@ -40,10 +40,16 @@ classdef diceRoller < handle
     end
     
     methods
-        function obj = diceRoller(size, rollMax)
-            obj.dice(1:size) = die();
+        function obj = diceRoller(size, rollMax, values)
             obj.rollCount = 0;
             obj.rollMax = rollMax;
+            if(nargin == 3)
+                for i = 1:length(values)
+                    obj.dice(i) = die(values(i));
+                end
+            else
+                obj.dice(1:size) = die();
+            end
         end
         
         function obj = rollAll(obj)

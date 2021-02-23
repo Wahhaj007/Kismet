@@ -1,4 +1,4 @@
-classdef scorer
+classdef Scorer
 % Class - SCORER - Calculates the score to be stored in a scorecard based on input dice array. 
 %   
 % Created by Koby Taswell on 2/22/2021
@@ -16,8 +16,9 @@ classdef scorer
 %   - CalculateBasicBonus(): returns a basicBonus based on the sum of
 %   basicSection
 %
-    properties (GetAccess = private, SetAccess = immutable)
-        diceToScore = die;
+    properties (GetAccess = private)
+        diceValues;
+        diceColors = colors;
     end
     
     properties (Dependent)
@@ -26,8 +27,11 @@ classdef scorer
     
     methods
         %Constructor
-        function obj = scorer(diceToScore)
-            obj.diceToScore = diceToScore;
+        function obj = Scorer(values, colors)
+            if(nargin == 2)
+               obj.diceValues = values;
+               obj.diceColors = colors;
+            end
         end
         
         %full score array
@@ -40,7 +44,8 @@ classdef scorer
     end
     
     %Individual Scoring Sections
-    methods (Access = private)
+    %Public for testing prior to all 
+    methods (Access = public)
         %Basic section
         function basicSection = scoreBasicSection(obj)
             %TODO: Wahhaj
@@ -69,12 +74,31 @@ classdef scorer
         
         function fullHouseScore = scoreFullHouse(obj)
             %TODO: Koby
-            fullHouseScore = [];
+            uniques = unique(vals.diceValues);
+            
+            test = (length(uniques) == 2);
+            counts = sort(countOccurences(uniques, obj.diceValues));
+            
+            if(test && (all(counts == [2, 3])))
+                fullHouseScore = sum(obj.diceValues) + 15;
+            else 
+                fullHouseScore = -1;
+            end
         end
         
         function fullHouseSameColorScore = scoreFullHouseSameColor(obj)
             %TODO: Koby
-            fullHouseSameColorScore = [];
+            uniqueVal = unique(obj.diceValues);
+            uniqueColors = unique(obj.diceColors);
+            
+            test = (length(uniqueVal) == 2) && (length(uniqueColors) == 1);
+            counts = sort(countOccurences(uniques,vals));
+            
+            if(test && (all(counts == [2, 3])))
+                fullHouseSameColorScore = sum(vals) + 20;
+            else 
+                fullHouseSameColorScore = -1;
+            end
         end
         
         function fourKindScore = scoreFourKind(obj)
@@ -93,6 +117,15 @@ classdef scorer
         function kismetScore = scoreKismet(obj)
             %TODO: Koby
             kismetScore = [];
+        end
+        
+        function count = countOccurences(A, B)
+            %Count occurences of A in B.
+            count = zeros(1, length(A));
+            
+            for i = 1:length(count)
+                count(i) = sum(ismember(A(i), B));
+            end
         end
     end
 end
