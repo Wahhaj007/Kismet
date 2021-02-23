@@ -103,20 +103,34 @@ classdef Scorer
         
         function fourKindScore = scoreFourKind(obj)
             %TODO: Koby
-            fourKindScore = [];
+            uniqueVal = unique(obj.diceValues);
+            counts = countOccurences(uniqueVal, obj.diceValues);
+            
+            test = ismember(4, counts);
+            
+            if(test)
+                fourKindScore = sum(obj.diceValues) + 25;
+            else
+                fourKindScore = -1;
+            end
         end
         
         function yarboroughScore = scoreYarborough(obj)
             %TODO: Koby
-            yarboroughScore = 0;
-            for i = obj.diceToScore
-                yarboroughScore = yarboroughScore + i.Value;
-            end
+            yarboroughScore = sum(obj.diceValues);
         end
         
         function kismetScore = scoreKismet(obj)
             %TODO: Koby
-            kismetScore = [];
+            uniqueVal = unique(obj.diceValues);
+            
+            test = (length(uniqueVal) == 1);
+            
+            if(test)
+                kismetScore = sum(obj.diceValues) + 50;
+            else
+                kismetScore = -1;
+            end
         end
     end
 end
