@@ -41,10 +41,92 @@ classdef Scorer
     %Public for testing prior to all 
     methods 
         %Basic section
-        function basicSection = scoreBasicSection(obj)
-            %TODO: Wahhaj
-            basicSection = [];
+        %TODO: Wahhaj
+    %aces
+  function totalscore = scoreBasicSection(obj) %confused on this part
+        aces
+        deuces
+        treys
+        fours
+        fives
+        sixes
+    function scoreaces = aces(obj)
+        scoreaces = 0;
+        for i = 1:5 
+            if(obj.diceValues(i) == 1)
+                scoreaces = scoreaces + 1;
+            end
         end
+        if(scoreaces == 0)
+            scoreaces = -1;
+        end
+    end
+    %deuces
+    function scoredeuces = deuces(obj)
+        scoredeuces = 0;
+        for i = 1:5
+            if(obj.diceValues(1) == 2)
+                scoredeuces = scoredeuces + 1;
+            end
+        end
+        if(scoredeuces == 0)
+            scoredeuces = -1;
+        end
+    end
+    %treys
+    function scoretreys = treys(obj)
+        scoretreys = 0;
+        for i = 1:5
+            if(obj.diceValues(1) == 3)
+                scoretreys = scoretreys + 1;
+            end
+        end
+        if(scoretreys == 0)
+            scoretreys = -1;
+        end
+    end
+    %fours
+    function scorefours = fours(obj)
+        scorefours = 0;
+        for i = 1:5
+            if(obj.diceValues(1) == 4)
+                scorefours = scorefours + 1;
+            end
+        end
+        if(scorefours == 0)
+            scorefours = -1;
+        end
+    end
+    %fives
+    function scorefives = fives(obj)
+        scorefives = 0;
+        for i = 1:5
+            if(obj.diceValues(1) == 5)
+                scorefives = scorefives + 1;
+            end
+        end
+        if(scorefives == 0)
+            scorefives = -1;
+        end
+    end
+    %sixes
+    function scoresixes = sixes(obj)
+        scoresixes = 0;
+        for i = 1:5
+            if(obj.diceValues(1) == 6)
+                scoresixes = scoresixes + 1;
+            end
+        end
+        if(scoresixes == 0)
+            scoresixes = -1;
+        end
+    end
+    totalscore = scoreaces + scoredeuces + scoretreys + ...
+    scorefives + scoresixes;
+ end
+
+
+
         
         function twoPairScore = scoreTwoPair(obj)
             %TODO: Edison
