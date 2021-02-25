@@ -48,12 +48,57 @@ classdef Scorer
         
         function twoPairScore = scoreTwoPair(obj)
             %TODO: Edison
-            twoPairScore = [];
+            uniqueVal = unique(obj.diceValues);
+            uniqueColors = unique(obj.diceColors);
+            
+            counts = countOccurences(uniqueVal, obj.diceValues);
+            x = zeros(1, 2);
+            j = 1;
+            for i = 1:length(uniqueVal)
+               if counts(i) == 2
+                   x(j) = uniqueVal(i);
+                   j = j+1;
+               end
+            end
+            b = obj.diceColors(1);
+            
+           
+            d= obj.diceColors(1);
+            c = 1;
+            for i = 1:length(obj.diceValues)
+               if obj.diceValues(i) == x(c)
+                   if c == 2
+                       d = obj.diceColors(i);
+                       break;
+                   else
+                       b = obj.diceColors(i);
+                   end
+                c = c+1;
+               end
+            end
+            status = b == d;
+       
+            test = (length(uniqueVal) == 3) && (length(uniqueColors) <= 2);
+            if(test && (all(sort(counts) == [1,2,2])) && status)
+                twoPairScore = sum(obj.diceValues);
+            else 
+                twoPairScore = -1;
+            end
+            
         end
         
         function threeKindScore = scoreThreeKind(obj)
             %TODO: Edison
-            threeKindScore = [];
+            uniqueVal = unique(obj.diceValues);
+            counts = countOccurences(uniqueVal, obj.diceValues);
+            
+            test = ismember(3, counts);
+            
+            if(test)
+                threeKindScore = sum(obj.diceValues);
+            else
+                threeKindScore = -1;
+            end
         end
         
         function straightScore = scoreStraight(obj)
