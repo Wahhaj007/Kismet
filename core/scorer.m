@@ -28,6 +28,10 @@ classdef scorer
             end
         end
         
+        function [bestScores, idx] = getBestScore(scores)
+            [bestScore, idx] = sort(scores);
+        end
+        
         %full score array
         function scores = get.scores(obj)
             scores = [obj.scoreBasicSection(), obj.scoreTwoPair(), obj.scoreThreeKind(), ...
