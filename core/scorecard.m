@@ -32,7 +32,7 @@ classdef scorecard
     
     methods
         function obj = scorecard(name)
-            if(nargin == 1))
+            if(nargin == 1)s
                 obj.name = name;
             else
                 obj.name = '';
