@@ -32,8 +32,12 @@ classdef scorecard
     
     methods
         function obj = scorecard(name)
-            obj.name = name;
-            obj.scores = ones(1,15) * -1;
+            if(nargin == 1))
+                obj.name = name;
+            else
+                obj.name = '';
+            end
+             obj.scores = ones(1,15) * -1;
         end
         
         function obj = inputScores(obj, scoresIn, idx)
