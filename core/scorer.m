@@ -107,13 +107,30 @@ classdef scorer
         end
         
         function straightScore = scoreStraight(obj)
-            %TODO: Edison
-            straightScore = [];
+            uniqueVal = unique(obj.diceValues);
+            
+            
+            if uniqueVal == 15 || uniqueVal == 20
+                straightScore = sum(obj.diceValues) + 30;
+            else
+                straightScore = -1;
+            end
+            
         end
         
         function flushScore = scoreFlush(obj)
             %TODO: Edison
-            flushScore = [];
+            uniqueVal = unique(obj.diceValues);
+            uniqueColors = unique(obj.diceColors);
+            
+            test = length(uniqueColors) == 1);
+            if test == 1
+                flushScore = sum(obj.diceValues) + 35;
+            else
+                flushScore = -1;
+            end
+            
+            
         end
         
         function fullHouseScore = scoreFullHouse(obj)
