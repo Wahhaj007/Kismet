@@ -1,4 +1,4 @@
-classdef Scorer
+classdef scorer
 % Class - SCORER - Calculates the score to be stored in a scorecard based on input dice array. 
 %   
 % Created by Koby Taswell on 2/22/2021
