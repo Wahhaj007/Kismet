@@ -25,6 +25,7 @@ classdef scorecard
         basicSection;
         kismetSection;
     end
+    
     properties (Dependent)
         totalScore;
         basicBonus;
