@@ -2,7 +2,7 @@ classdef scorer
 % Class - SCORER - Calculates the score to be stored in a scorecard based on input dice array. 
 %   
 % Created by Koby Taswell on 2/22/2021
-% Last updated by Wahhaj Malik on 2/25/2021
+% Last updated by Wahhaj Malik on 2/26/2021
 %
 % Properties:
 %   - diceValues: values of input dice
@@ -44,11 +44,29 @@ classdef scorer
         %TODO: Wahhaj
         function [aces,deuces,treys,fours,fives,sixes] = scoreBasicSection(obj)
             aces = sum(obj.diceValues(obj.diceValues == 1));
+            if (aces == 0)
+                aces = -1;
+            end
             deuces = sum(obj.diceValues(obj.diceValues == 2));
+            if (deuces == 0)
+                deuces = -1;
+            end
             treys = sum(obj.diceValues(obj.diceValues == 3));
+            if (treys == 0)
+                treys = -1;
+            end
             fours = sum(obj.diceValues(obj.diceValues == 4));
+            if (fours == 0)
+                fours = -1;
+            end
             fives = sum(obj.diceValues(obj.diceValues == 5));
+            if (fives == 0)
+                fives = -1;
+            end
             sixes = sum(obj.diceValues(obj.diceValues == 6));
+            if (sixes == 0)
+                sixes = -1;
+            end
         end   
         
         function twoPairScore = scoreTwoPair(obj)
