@@ -21,7 +21,7 @@ classdef scorer
     
     methods
         %Constructor
-        function obj = Scorer(values, colors)
+        function obj = scorer(values, colors)
             if(nargin == 2)
                obj.diceValues = values;
                obj.diceColors = colors;
@@ -46,7 +46,7 @@ classdef scorer
     methods 
         %Basic section
         %TODO: Wahhaj
-        function [aces,deuces,treys,fours,fives,sixes] = scoreBasicSection(obj)
+        function [basicSection] = scoreBasicSection(obj)
             aces = sum(obj.diceValues(obj.diceValues == 1));
             if (aces == 0)
                 aces = -1;
@@ -71,6 +71,8 @@ classdef scorer
             if (sixes == 0)
                 sixes = -1;
             end
+            
+            basicSection = [aces, deuces,treys, fours, fives, sixes];
         end   
         
         function twoPairScore = scoreTwoPair(obj)
