@@ -22,9 +22,9 @@ classdef scorecard
     end
     
     properties(SetAccess = protected)
-        basicSection;
-        kismetSection;
+        scores;
     end
+    
     properties (Dependent)
         totalScore;
         basicBonus;
@@ -32,29 +32,34 @@ classdef scorecard
     
     methods
         function obj = scorecard(name)
-            obj.name = name;
-            obj.basicSection = ones(1,6) * -1;
-            obj.kismetSection = ones(1,9) * -1;
-        end
-        
-        function obj = setBasicSection(obj, score, idx)
-            %Makes the score at that index of basic section permanently set
-            %once assigned for the first time
-            if(obj.basicSection(idx) == -1)
-                obj.basicSection(idx) = score;
+            if(nargin == 1)s
+                obj.name = name;
+            else
+                obj.name = '';
             end
+             obj.scores = ones(1,15) * -1;
         end
         
-        function obj = setKismetSection(obj, score, idx)
-            %Makes the score at that index of kismet section permanently set
-            %once assigned for the first time
-            if(obj.kismetSection(idx) == -1)
-                obj.kismetSection(idx) = score;
+        function obj = inputScores(obj, scoresIn, idx)
+            scoresIn = scoresIn(end:-1:1);
+            idx = idx(end:-1:1);
+            
+            for i = 1:15
+                [obj, test] = setScore(obj, scoresIn(i), idx(i));
+                if(test)
+                    break;
+                elseif(scoresIn(i) == -1)
+                    idx = findLowestEmptyScore(obj);
+                    obj.scores(idx) = 0;
+                    break;
+                end
             end
         end
         
         function basicBonus = get.basicBonus(obj)
-            basic = sum(obj.basicSection(obj.basicSection ~= -1));
+            
+            basic = obj.scores(1:6);
+            basic = sum(basic(basic ~= -1));
             
             if(basic <= 62)
                 basicBonus = 0;
@@ -68,10 +73,27 @@ classdef scorecard
         end 
         
         function totalScore = get.totalScore(obj)
-            temp = [obj.basicSection, obj.kismetSection];
-            temp = temp(temp ~= -1);
+            temp = obj.scores(obj.scores ~= -1);
             
             totalScore = sum(temp) + obj.basicBonus;
         end         
+    end
+    
+    methods(Access = private)
+        function [obj, log] = setScore(obj, score, idx)
+            %Makes the score at that index of basic section permanently set
+            %once assigned for the first time
+            if(obj.scores(idx) == -1 && score ~= -1)
+                obj.scores(idx) = score;
+                log = true;
+            else
+                log = false;
+            end
+        end
+        
+        function idx = findLowestEmptyScore(obj)
+            [Lia, Locb] = ismember(-1, obj.scores);
+            idx = min(Locb);            
+        end
     end
 end

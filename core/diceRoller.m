@@ -23,7 +23,7 @@ classdef diceRoller < handle
    
     properties (Dependent)
         isRollable;
-        diceValues;
+        diceValues; 
         diceColors;
     end
    
@@ -60,6 +60,11 @@ classdef diceRoller < handle
         end 
         
         function obj = rollSelected(obj, idx)
+            if(islogical(idx))
+                temp = 1:length(idx);
+                idx = temp(idx);
+            end
+            
             if(obj.isRollable)            
                 obj = obj.rollDice(idx);
                 obj.rollCount = obj.rollCount + 1;
