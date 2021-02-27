@@ -12,6 +12,7 @@ classdef game
     properties (Dependent)
         currentPlayer;
         currentTopScore;
+        allScores;
     end
     
     methods
@@ -43,8 +44,14 @@ classdef game
             
         end
         
+        function scores = get.allScores(obj)
+            for i = 1:length(obj.players)
+                scores(i,:) = obj.players(i).fullCard;
+            end
+        end
+        
         function obj = addPlayer(obj, player)
-            if(isa(class(player), 'scorecard') && obj.round == 0)
+            if(all(class(player) == 'scorecard') && obj.round == 0)
                 obj.players(length(obj.players) + 1) = player;
             end
         end

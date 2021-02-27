@@ -43,6 +43,7 @@ classdef diceRoller < handle
         function obj = diceRoller(size, rollMax, values)
             obj.rollCount = 0;
             obj.rollMax = rollMax;
+            
             if(nargin == 3)
                 for i = 1:length(values)
                     obj.dice(i) = die(values(i));
@@ -87,6 +88,11 @@ classdef diceRoller < handle
             for i = 1:length(obj.dice)
                 diceColors(i) = obj.dice(i).Color;
             end
+        end
+        
+        function obj = reset(obj)
+            obj.rollCount = 0;
+            obj.dice(1:length(obj.dice)) = die();
         end
     end
 end
