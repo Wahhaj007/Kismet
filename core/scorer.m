@@ -145,7 +145,7 @@ classdef scorer
             uniqueVal = unique(obj.diceValues);
             uniqueColors = unique(obj.diceColors);
             
-            test = length(uniqueColors) == 1);
+            test = length(uniqueColors) == 1;
             if test == 1
                 flushScore = sum(obj.diceValues) + 35;
             else
