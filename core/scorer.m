@@ -28,8 +28,8 @@ classdef scorer
             end
         end
         
-        function [bestScores, idx] = getBestScore(scores)
-            [bestScore, idx] = sort(scores);
+        function [bestScores, idx] = getBestScore(obj)
+            [bestScore, idx] = sort(obj.scores);
         end
         
         %full score array
