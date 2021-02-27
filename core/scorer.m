@@ -129,20 +129,20 @@ classdef scorer
         end
         
         function straightScore = scoreStraight(obj)
-            uniqueVal = unique(obj.diceValues);
+             sortVal = sort(obj.diceValues);
+             
+            a = [1,2,3,4,5];
+            b = [2,3,4,5,6];
             
-            
-            if uniqueVal == 15 || uniqueVal == 20
+            if all(sortVal ==a) || all(sortVal==b)
                 straightScore = sum(obj.diceValues) + 30;
             else
                 straightScore = -1;
             end
-            
         end
         
         function flushScore = scoreFlush(obj)
             %TODO: Edison
-            uniqueVal = unique(obj.diceValues);
             uniqueColors = unique(obj.diceColors);
             
             test = length(uniqueColors) == 1;
