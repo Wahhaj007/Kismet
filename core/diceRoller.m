@@ -79,9 +79,7 @@ classdef diceRoller < handle
             diceValues = zeros(1,length(obj.dice));
             disp(length(diceValues));
             for i = 1:length(diceValues)
-                fprintf("Before: Dice Values (i) %f, Die (i) Value %f\n",diceValues(i),obj.dice(i).Value);
                 diceValues(i) = obj.dice(i).Value;
-                fprintf("After: Dice Values (i) %f, Die (i) Value %f\n",diceValues(i),obj.dice(i).Value);
             end
         end
         
