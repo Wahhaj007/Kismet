@@ -28,6 +28,7 @@ classdef scorecard
     properties (Dependent)
         totalScore;
         basicBonus;
+        fullCard;
     end
     
     methods
@@ -76,8 +77,24 @@ classdef scorecard
             temp = obj.scores(obj.scores ~= -1);
             
             totalScore = sum(temp) + obj.basicBonus;
-        end         
+        end    
+        
+        function fullCard = get.fullCard(obj)
+            fullCard = strings(1,17);
+            idx = obj.scores ~= -1;
+            vals = 1:length(idx);
+            idx = vals(idx);
+            
+            for i = idx
+                fullCard(i) = num2str(obj.scores(i));
+            end
+            
+            fullCard(16) = num2str(obj.basicBonus);
+            fullCard(17) = num2str(obj.totalScore);
+        end
     end
+    
+    
     
     methods(Access = private)
         function [obj, log] = setScore(obj, score, idx)

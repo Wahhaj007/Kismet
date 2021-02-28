@@ -79,16 +79,25 @@ classdef diceRoller < handle
             diceValues = zeros(1,length(obj.dice));
             disp(length(diceValues));
             for i = 1:length(diceValues)
-                fprintf("Before: Dice Values (i) %f, Die (i) Value %f\n",diceValues(i),obj.dice(i).Value);
-                diceValues(i) = obj.dice(i).Value;
-                fprintf("After: Dice Values (i) %f, Die (i) Value %f\n",diceValues(i),obj.dice(i).Value);
+                if(~isempty(obj.dice(i).Value))
+                    diceValues(i) = obj.dice(i).Value;
+                else
+                    diceValues(i) = 0;
+                end
             end
         end
         
         function diceColors = get.diceColors(obj)
             for i = 1:length(obj.dice)
-                diceColors(i) = obj.dice(i).Color;
+                if(~isempty(obj.dice(i).Color)
+                    diceColors(i) = obj.dice(i).Color;
+                end
             end
+        end
+        
+        function obj = reset(obj)
+            obj.rollCount = 0;
+            obj.dice(1:length(obj.dice)) = die();
         end
     end
 end
