@@ -77,7 +77,6 @@ classdef diceRoller < handle
         
         function diceValues = get.diceValues(obj)
             diceValues = zeros(1,length(obj.dice));
-            disp(length(diceValues));
             for i = 1:length(diceValues)
                 if(~isempty(obj.dice(i).Value))
                     diceValues(i) = obj.dice(i).Value;
@@ -89,9 +88,7 @@ classdef diceRoller < handle
         
         function diceColors = get.diceColors(obj)
             for i = 1:length(obj.dice)
-                if(~isempty(obj.dice(i).Color)
                     diceColors(i) = obj.dice(i).Color;
-                end
             end
         end
         
