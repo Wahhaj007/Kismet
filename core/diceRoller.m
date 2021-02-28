@@ -43,6 +43,7 @@ classdef diceRoller < handle
         function obj = diceRoller(size, rollMax, values)
             obj.rollCount = 0;
             obj.rollMax = rollMax;
+            
             if(nargin == 3)
                 for i = 1:length(values)
                     obj.dice(i) = die(values(i));
@@ -79,9 +80,7 @@ classdef diceRoller < handle
             diceValues = zeros(1,length(obj.dice));
             disp(length(diceValues));
             for i = 1:length(diceValues)
-                fprintf("Before: Dice Values (i) %f, Die (i) Value %f\n",diceValues(i),obj.dice(i).Value);
                 diceValues(i) = obj.dice(i).Value;
-                fprintf("After: Dice Values (i) %f, Die (i) Value %f\n",diceValues(i),obj.dice(i).Value);
             end
         end
         
@@ -89,6 +88,11 @@ classdef diceRoller < handle
             for i = 1:length(obj.dice)
                 diceColors(i) = obj.dice(i).Color;
             end
+        end
+        
+        function obj = reset(obj)
+            obj.rollCount = 0;
+            obj.dice(1:length(obj.dice)) = die();
         end
     end
 end
