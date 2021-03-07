@@ -3,6 +3,7 @@ classdef game
         players = scorecard;
         round;
         turn;
+        localPlayer;
     end
     
     properties (Constant)
@@ -22,6 +23,21 @@ classdef game
             end
             obj.round = 0;
             obj.turn = 0;
+        end
+        
+        function obj = setLocalPlayer(obj, playerName)            
+            names = [];
+            
+            for i = obj.Players
+                names = [names, i.name];
+            end
+            
+            %If multiple people have the same name, only get the first
+            %person with the name
+            idx = strcmp(playerName, names); 
+            idx = find(idx, 1, 'first');
+            
+            obj.localPlayer = idx;
         end
         
         function player = get.currentPlayer(obj)
