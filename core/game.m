@@ -13,6 +13,7 @@ classdef game
     properties (Dependent)
         currentPlayer;
         currentTopScore;
+        allNames;
         allScores;
     end
     
@@ -26,15 +27,10 @@ classdef game
         end
         
         function obj = setLocalPlayer(obj, playerName)            
-            names = [];
-            
-            for i = obj.Players
-                names = [names, i.name];
-            end
             
             %If multiple people have the same name, only get the first
             %person with the name
-            idx = strcmp(playerName, names); 
+            idx = strcmp(playerName, obj.allNames); 
             idx = find(idx, 1, 'first');
             
             obj.localPlayer = idx;
@@ -66,9 +62,21 @@ classdef game
             end
         end
         
+        function names = get.allNames(obj)
+            names = [];
+            
+            for i = obj.players
+                names = [names, i.name];
+            end
+        end
+        
         function obj = addPlayer(obj, player)
             if(all(class(player) == 'scorecard') && obj.round == 0)
-                obj.players(length(obj.players) + 1) = player;
+                if(obj.players(1).name == "")
+                    obj.players(1) = player;
+                else
+                    obj.players(length(obj.players)+1) = player;
+                end
             end
         end
         

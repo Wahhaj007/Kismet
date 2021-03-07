@@ -36,7 +36,7 @@ classdef scorecard
             if(nargin == 1)
                 obj.name = name;
             else
-                obj.name = '';
+                obj.name = "";
             end
              obj.scores = ones(1,15) * -1;
         end
