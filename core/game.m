@@ -26,14 +26,9 @@ classdef game
             obj.turn = 0;
         end
         
-        function obj = setLocalPlayer(obj, playerName)            
-            
-            %If multiple people have the same name, only get the first
-            %person with the name
-            idx = strcmp(playerName, obj.allNames); 
-            idx = find(idx, 1, 'first');
-            
-            obj.localPlayer = idx;
+        function obj = setLocalPlayer(obj, playerIdx)            
+                  
+            obj.localPlayer = playerIdx;
         end
         
         function player = get.currentPlayer(obj)
@@ -66,7 +61,7 @@ classdef game
             names = [];
             
             for i = obj.players
-                names = [names, i.name];
+                names = [names, string(i.name)];
             end
         end
         
