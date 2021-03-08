@@ -11,33 +11,50 @@ classdef thingSpeakHandler
     
     methods         
         function writeName(obj,playerName)
-            names = obj.readNames();
+            data = obj.readData();
+            names = data{1};
             names = strcat(names, ', ', playerName);
-            thingSpeakWrite(obj.chID, 'WriteKey', obj.writeKey, 'Fields', 1, names);
+            data{1} = names;
+            thingSpeakWrite(obj.chID, 'WriteKey', obj.writeKey, data);
         end
         
         function names = readNames(obj)
-            names = thingSpeakRead(obj.chID, 'ReadKey', obj.readKey, 'Fields', 1);
+            data  = obj.readData();
+            names = data{1};
         end
         
         function writeScoreIdx(obj, score, idx)
-            scoreIdx = {score, idx};
-            thingSpeakWrite(obj.chID, 'WriteKey', obj.writeKey, 'Fields', [2, 3], scoreIdx);
+            data = obj.readData();
+            data{2} = score;
+            data{3} = idx;
+            thingSpeakWrite(obj.chID, 'WriteKey', obj.writeKey, data);
         end
         
         function [score, idx] = readScoreIdx(obj)
-            read = thingSpeakRead(obj.chID, 'ReadKey', obj.readKey, 'Fields', [2, 3]);
-            score = read{1};
-            idx = read{2};
+            data = obj.readData();
+            score = data{2};
+            idx = data{3};
         end
         
         function writeGameStart(obj)
-            start = obj.readGameStart();
-            thingSpeakWrite(obj.chID, 'WriteKey', obj.writeKey, 'Fields', 4, ~start);
+            data = obj.readData();
+            data{4} = ~logical(data{4});
+            thingSpeakWrite(obj.chID, 'WriteKey', obj.writeKey, data);
         end
         
         function gameStart = readGameStart(obj)
-            gameStart = thingSpeakRead(obj.chID, 'ReadKey', obj.readKey, 'Fields', 4);
+            data = obj.readData();
+            gameStart = data{4};
+        end
+    end
+    
+    methods (Access = private)
+        function data = readData(obj)
+            data = thingSpeakRead(obj.chID, 'ReadKey', obj.readKey, 'Fields', 1:4);
+            %Get columns 2-5 (everything but time stamps
+            data = data(:, 2:5);
+            %Return as cell array
+            data = table2cell(data);
         end
     end
 end

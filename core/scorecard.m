@@ -23,6 +23,7 @@ classdef scorecard
     
     properties(SetAccess = protected)
         scores;
+        lastScoreIdx;
     end
     
     properties (Dependent)
@@ -46,11 +47,11 @@ classdef scorecard
             idx = idx(end:-1:1);
             
             for i = 1:15
-                [obj, test] = setScore(obj, scoresIn(i), idx(i));
+                [obj, test] = obj.setScore(scoresIn(i), idx(i));
                 if(test)
                     break;
                 elseif(scoresIn(i) == -1)
-                    idx = findLowestEmptyScore(obj);
+                    [obj, idx] = obj.findLowestEmptyScore();
                     obj.scores(idx) = 0;
                     break;
                 end
@@ -102,15 +103,17 @@ classdef scorecard
             %once assigned for the first time
             if(obj.scores(idx) == -1 && score ~= -1)
                 obj.scores(idx) = score;
+                obj.lastScoreIdx = idx;
                 log = true;
             else
                 log = false;
             end
         end
         
-        function idx = findLowestEmptyScore(obj)
+        function [obj, idx] = findLowestEmptyScore(obj)
             [Lia, Locb] = ismember(-1, obj.scores);
-            idx = min(Locb);            
+            idx = min(Locb);
+            obj.lastScoreIdx = idx;
         end
     end
 end

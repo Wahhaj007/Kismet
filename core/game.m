@@ -15,6 +15,7 @@ classdef game
         currentTopScore;
         allNames;
         allScores;
+        recentlyAddedScore;
     end
     
     methods
@@ -63,6 +64,15 @@ classdef game
             for i = obj.players
                 names = [names, string(i.name)];
             end
+        end
+        
+        function recentlyAddedScore = get.recentlyAddedScore(obj)
+            idx = obj.turn - 1;
+            if(idx == 0)
+                idx = length(obj.players);
+            end
+            
+            recentlyAddedScore = [ obj.players(idx).lastScoreIdx, obj.players(idx).scores(obj.players(idx).lastScoreIdx)];
         end
         
         function obj = addPlayer(obj, player)
