@@ -15,7 +15,7 @@ classdef game
         currentTopScore;
         allNames;
         allScores;
-        recentlyAddedScore;
+        recentlyAddedScore; %Recently added score is in the format [idx, score]
     end
     
     methods

@@ -50,7 +50,7 @@ classdef thingSpeakHandler
     
     methods (Access = private)
         function data = readData(obj)
-            data = thingSpeakRead(obj.chID, 'ReadKey', obj.readKey, 'Fields', 1:4);
+            data = thingSpeakRead(obj.chID, 'ReadKey', obj.readKey, 'Fields', 1:4, 'OutputFormat', 'table');
             %Get columns 2-5 (everything but time stamps
             data = data(:, 2:5);
             %Return as cell array
