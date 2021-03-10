@@ -10,17 +10,25 @@ classdef thingSpeakHandler
     end
     
     methods         
-        function writeName(obj,playerName)
+        function [names, idx] = writeName(obj,playerName)
             data = obj.readData();
             names = data{1};
-            names = strcat(names, ', ', playerName);
+            if(names == "")
+                names = playerName;
+            else
+                names = strcat(names, ', ', playerName);
+            end
+            
+            idx = length(split(names, ', '));
+            
             data{1} = names;
             thingSpeakWrite(obj.chID, 'WriteKey', obj.writeKey, data);
         end
         
-        function names = readNames(obj)
+        function [names, gameStart] = readNames(obj)
             data  = obj.readData();
             names = data{1};
+            gameStart = data{4};
         end
         
         function writeScoreIdx(obj, score, idx)
@@ -30,21 +38,23 @@ classdef thingSpeakHandler
             thingSpeakWrite(obj.chID, 'WriteKey', obj.writeKey, data);
         end
         
-        function [score, idx] = readScoreIdx(obj)
+        function [score, idx, gameStart] = readScoreIdx(obj)
             data = obj.readData();
             score = data{2};
             idx = data{3};
+            gameStart = data{4};
         end
         
         function writeGameStart(obj)
             data = obj.readData();
-            data{4} = ~logical(data{4});
+            data{4} = 1;
             thingSpeakWrite(obj.chID, 'WriteKey', obj.writeKey, data);
         end
         
-        function gameStart = readGameStart(obj)
+        function writeGameEnd(obj)
             data = obj.readData();
-            gameStart = data{4};
+            data{4} = 0;
+            thingSpeakWrite(obj.chID, 'WriteKey', obj.writeKey, data); 
         end
     end
     
