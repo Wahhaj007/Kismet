@@ -3,7 +3,6 @@ classdef game
         players = scorecard;
         round;
         turn;
-        localPlayer;
     end
     
     properties (Constant)
@@ -25,11 +24,6 @@ classdef game
             end
             obj.round = 0;
             obj.turn = 0;
-        end
-        
-        function obj = setLocalPlayer(obj, playerIdx)            
-                  
-            obj.localPlayer = playerIdx;
         end
         
         function player = get.currentPlayer(obj)
