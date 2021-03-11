@@ -14,7 +14,7 @@ classdef game
         currentTopScore;
         allNames;
         allScores;
-        recentlyAddedScore; %Recently added score is in the format [idx, score]
+        recentlyAddedScore; %Recently added score is in the format [score, idx]
     end
     
     methods
@@ -66,7 +66,7 @@ classdef game
                 idx = length(obj.players);
             end
             
-            recentlyAddedScore = [ obj.players(idx).lastScoreIdx, obj.players(idx).scores(obj.players(idx).lastScoreIdx)];
+            recentlyAddedScore = [obj.players(idx).scores(obj.players(idx).lastScoreIdx),  obj.players(idx).lastScoreIdx];
         end
         
         function obj = addPlayer(obj, player)
