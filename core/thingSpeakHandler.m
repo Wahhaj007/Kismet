@@ -47,11 +47,12 @@ classdef thingSpeakHandler
             thingSpeakWrite(obj.chID, 'WriteKey', obj.writeKey,'Values', data);
         end
         
-        function [score, idx, gameStart] = readScoreIdx(obj)
+        function [score, idx, round, turn] = readScoreIdx(obj)
             data = obj.readData();
             score = data{2};
             idx = data{3};
-            gameStart = data{4};
+            round = data{4};
+            turn = data{5};
         end
         
         function writeGameStart(obj)
