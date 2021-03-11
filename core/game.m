@@ -69,12 +69,12 @@ classdef game
             recentlyAddedScore = [obj.players(idx).scores(obj.players(idx).lastScoreIdx),  obj.players(idx).lastScoreIdx];
         end
         
-        function obj = addPlayer(obj, player)
-            if(all(class(player) == 'scorecard') && obj.round == 0)
+        function obj = addPlayers(obj, players)
+            if(all(class(players) == 'scorecard') && obj.round == 0)
                 if(obj.players(1).name == "")
-                    obj.players(1) = player;
+                    obj.players = players;
                 else
-                    obj.players(length(obj.players)+1) = player;
+                    obj.players = [obj.players, players];
                 end
             end
         end
