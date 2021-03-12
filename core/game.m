@@ -76,10 +76,10 @@ classdef game
         end
         
         function names = get.allNames(obj)
-            names = [];
+            names = cell(length(obj.players), 1);
             
-            for i = obj.players
-                names = [names, string(i.name)];
+            for i = 1:length(obj.players)
+                names{i} = string(obj.players(i).name);
             end
         end
         
