@@ -80,40 +80,43 @@ classdef scorer
             uniqueVal = unique(obj.diceValues);
             uniqueColors = unique(obj.diceColors);
             
-            counts = countOccurences(uniqueVal, obj.diceValues);
-            x = zeros(1, 2);
-            j = 1;
-            for i = 1:length(uniqueVal)
-               if counts(i) >= 2
-                   x(j) = uniqueVal(i);
-                   j = j+1;
-               end
-            end
-            b = obj.diceColors(1);
+%             counts = countOccurences(uniqueVal, obj.diceValues);
+%             x = zeros(1, length(uniqueVal));
+%             j = 1;
+%             for i = 1:length(uniqueVal)
+%                if counts(i) >= 2
+%                    x(j) = uniqueVal(i);
+%                    j = j+1;
+%                end
+%             end
+%             b = obj.diceColors(1);
+%             
+%            
+%             d= obj.diceColors(1);
+%             c = 1;
+%             for i = 1:length(obj.diceValues)
+%                if obj.diceValues(i) == x(c)
+%                    if c == 2
+%                        d = obj.diceColors(i);
+%                        break;
+%                    else
+%                        b = obj.diceColors(i);
+%                    end
+%                 c = c+1;
+%                end
+%             end
+%             status = b == d;
             
-           
-            d= obj.diceColors(1);
-            c = 1;
-            for i = 1:length(obj.diceValues)
-               if obj.diceValues(i) == x(c)
-                   if c == 2
-                       d = obj.diceColors(i);
-                       break;
-                   else
-                       b = obj.diceColors(i);
-                   end
-                c = c+1;
-               end
-            end
-            status = b == d;
-       
-            test = (length(uniqueVal) == 3) && (length(uniqueColors) <= 2);
-            if(test && (all(sort(counts) == [1,2,2])) && status)
+            %Isn't the only thing you need to test unique color length and
+            %unique values? what is the point of status and making sure
+            %sort counts is 1, 2, 2? What other combination could you get
+            %if length vals is 3 and length colors is 2
+            test = ((length(uniqueVal) == 2) || (length(uniqueVal) == 3)) && (length(uniqueColors) <= 2);
+            if(test)
                 twoPairScore = sum(obj.diceValues);
             else 
                 twoPairScore = -1;
             end
-            
         end
         
         function threeKindScore = scoreThreeKind(obj)
@@ -131,13 +134,14 @@ classdef scorer
         end
         
         function straightScore = scoreStraight(obj)
-             sortVal = sort(obj.diceValues);
+            %TODO: Edison
+            sortVal = sort(obj.diceValues);
              
             a = [1,2,3,4,5];
             b = [2,3,4,5,6];
             
             if all(sortVal ==a) || all(sortVal==b)
-                straightScore = sum(obj.diceValues) + 30;
+                straightScore = 30;
             else
                 straightScore = -1;
             end
@@ -149,7 +153,7 @@ classdef scorer
             
             test = length(uniqueColors) == 1;
             if test == 1
-                flushScore = sum(obj.diceValues) + 35;
+                flushScore = 35;
             else
                 flushScore = -1;
             end
