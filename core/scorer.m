@@ -84,7 +84,7 @@ classdef scorer
             x = zeros(1, 2);
             j = 1;
             for i = 1:length(uniqueVal)
-               if counts(i) == 2
+               if counts(i) >= 2
                    x(j) = uniqueVal(i);
                    j = j+1;
                end
