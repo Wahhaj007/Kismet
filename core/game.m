@@ -79,7 +79,7 @@ classdef game
             names = [];
             
             for i = obj.players
-                names = [names; i.name];
+                names = [names; string(i.name)];
             end
         end
         
