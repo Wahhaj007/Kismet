@@ -24,18 +24,23 @@ classdef thingSpeakHandler
                 names = playerName;
             end
             
-            idx = length(split(names, ','));
-            
             data{1} = names;
+            names = split(names,',');
+            idx = length(names);
+            
             data{4} = 0;
             data{5} = 0;
             thingSpeakWrite(obj.chID, 'WriteKey', obj.writeKey, 'Values',data);
         end
         
-        function [names, gameStart] = readNames(obj)
+        function [names, round] = readNames(obj)
             data  = obj.readData();
-            names = data{1};
-            gameStart = data{4};
+            if(~isnan(data{1})) 
+                names = split(data{1}, ',');
+            else
+                names = data{1};
+            end
+            round = data{4};
         end
         
         function writeScoreIdx(obj, score, idx,round, turn)
