@@ -18,13 +18,13 @@ classdef thingSpeakHandler
                 if(string(names) == "")
                     names = playerName;
                 else
-                    names = strcat(names, ', ', playerName);
+                    names = strcat(names, ',', playerName);
                 end
             elseif(isa(names,'numeric') && isnan(names))
                 names = playerName;
             end
             
-            idx = length(split(names, ', '));
+            idx = length(split(names, ','));
             
             data{1} = names;
             data{4} = 0;
