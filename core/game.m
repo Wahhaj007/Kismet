@@ -59,7 +59,7 @@ classdef game
                 for i = 1:length(scores)
                     scores(i) = obj.players(i).totalScore;
                 end
-                
+                    
                 [scores, idx] = sort(scores);
                 playerIdx = idx(end);
             else
