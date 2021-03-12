@@ -36,7 +36,8 @@ classdef thingSpeakHandler
         function [names, round] = readNames(obj)
             data  = obj.readData();
             if(~isnan(data{1})) 
-                names = split(data{1}, ',');
+                names = string(data{1});
+                names = split(names, ',');
             else
                 names = data{1};
             end
