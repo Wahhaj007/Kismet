@@ -85,11 +85,13 @@ classdef game
         
         function recentlyAddedScore = get.recentlyAddedScore(obj)
             idx = obj.turn - 1;
+            rnd = obj.round;
             if(idx == 0)
                 idx = length(obj.players);
+                rnd = obj.round - 1;
             end
             
-            recentlyAddedScore = [obj.players(idx).scores(obj.players(idx).lastScoreIdx),  obj.players(idx).lastScoreIdx];
+            recentlyAddedScore = [obj.players(idx).scores(obj.players(idx).lastScoreIdx),  obj.players(idx).lastScoreIdx, rnd, idx];
         end
         
         function obj = addPlayers(obj, players)
