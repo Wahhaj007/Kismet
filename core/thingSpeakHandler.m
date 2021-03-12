@@ -69,7 +69,7 @@ classdef thingSpeakHandler
         end
         
         function reset(obj)
-            data = {'', NaN, NaN, 0, 0};
+            data = {NaN, NaN, NaN, 0, 0};
             thingSpeakWrite(obj.chID, 'WriteKey', obj.writeKey, "Values", data);
         end
     end
