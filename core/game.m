@@ -13,7 +13,7 @@ classdef game
 %   turn - the index of the player whose turn it currently is
 %   currentPlayer - scorecard of the current turn's player
 %   currentTopScore - idx of the player with the highest score
-%   allNames - gets 1xN array  of all player names where N is number of players
+%   allNames - gets Nx1 array  of all player names where N is number of players
 %   allScores - gets Nx17 array all player scores where N is number of players
 %   recentlyAddedScore - score and index of the most recently input score
 %
@@ -76,10 +76,10 @@ classdef game
         end
         
         function names = get.allNames(obj)
-            names = cell(length(obj.players), 1);
+            names = [];
             
-            for i = 1:length(obj.players)
-                names{i} = string(obj.players(i).name);
+            for i = obj.players
+                names = [names; i.name];
             end
         end
         
