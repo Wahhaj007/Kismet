@@ -1,9 +1,31 @@
 classdef game
+% GAME Class - tracks turn, round and scores as input by a scorer from
+% a diceroll. Stores all player scorecards and can determine the winner
+% once over
+% 
+%
+% Created by Koby Taswell on 2/27/2021
+% Last updated by Koby Taswell on 3/11/2021
+%
+% Properties
+%   players - the list of scorecard objects of players in the game
+%   round - the current round in a game, once the game has started, equals 1
+%   turn - the index of the player whose turn it currently is
+%   currentPlayer - scorecard of the current turn's player
+%   currentTopScore - idx of the player with the highest score
+%   allNames - gets 1xN array  of all player names where N is number of players
+%   allScores - gets Nx17 array all player scores where N is number of players
+%   recentlyAddedScore - score and index of the most recently input score
+%
+%Functions
+%   addPlayers(players) - adds a set of player objects, type scorecard, to the list of players
+%   startGame() - starts the game, sets turn and round equal to 1
+%   
+ 
     properties (SetAccess = protected)
         players = scorecard;
         round;
         turn;
-        localPlayer;
     end
     
     properties (Constant)
@@ -15,7 +37,7 @@ classdef game
         currentTopScore;
         allNames;
         allScores;
-        recentlyAddedScore;
+        recentlyAddedScore; %Recently added score is in the format [score, idx]
     end
     
     methods
@@ -25,11 +47,6 @@ classdef game
             end
             obj.round = 0;
             obj.turn = 0;
-        end
-        
-        function obj = setLocalPlayer(obj, playerIdx)            
-                  
-            obj.localPlayer = playerIdx;
         end
         
         function player = get.currentPlayer(obj)
@@ -59,28 +76,30 @@ classdef game
         end
         
         function names = get.allNames(obj)
-            names = [];
+            names = cell(length(obj.players), 1);
             
-            for i = obj.players
-                names = [names, string(i.name)];
+            for i = 1:length(obj.players)
+                names{i} = string(obj.players(i).name);
             end
         end
         
         function recentlyAddedScore = get.recentlyAddedScore(obj)
             idx = obj.turn - 1;
+            rnd = obj.round;
             if(idx == 0)
                 idx = length(obj.players);
+                rnd = obj.round - 1;
             end
             
-            recentlyAddedScore = [ obj.players(idx).lastScoreIdx, obj.players(idx).scores(obj.players(idx).lastScoreIdx)];
+            recentlyAddedScore = [obj.players(idx).scores(obj.players(idx).lastScoreIdx),  obj.players(idx).lastScoreIdx, rnd, idx];
         end
         
-        function obj = addPlayer(obj, player)
-            if(all(class(player) == 'scorecard') && obj.round == 0)
+        function obj = addPlayers(obj, players)
+            if(all(class(players) == 'scorecard') && obj.round == 0)
                 if(obj.players(1).name == "")
-                    obj.players(1) = player;
+                    obj.players = players;
                 else
-                    obj.players(length(obj.players)+1) = player;
+                    obj.players = [obj.players, players];
                 end
             end
         end
