@@ -76,7 +76,7 @@ classdef game
         end
         
         function names = get.allNames(obj)
-            names = strings(length(obj.players,1));
+            names = strings(length(obj.players),1);
             
             for i = 1:length(obj.players)
                 names(i) = string(obj.players(i).name);
