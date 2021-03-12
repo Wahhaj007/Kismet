@@ -25,7 +25,7 @@ classdef thingSpeakHandler
             end
             
             data{1} = names;
-            names = split(names,',');
+            names = string(split(names,','));
             idx = length(names);
             
             data{4} = 0;
