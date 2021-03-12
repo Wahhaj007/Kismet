@@ -61,6 +61,11 @@ classdef thingSpeakHandler
             data{5} = 1;
             thingSpeakWrite(obj.chID, 'WriteKey', obj.writeKey, 'Values',data);
         end
+        
+        function reset(obj)
+            data = {'', NaN, NaN, 0, 0};
+            thingSpeakWrite(obj.chID, 'WriteKey', obj.writeKey, "Values", data);
+        end
     end
     
     methods (Access = private)
