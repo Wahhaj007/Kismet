@@ -1,4 +1,27 @@
 classdef game
+% GAME Class - tracks turn, round and scores as input by a scorer from
+% a diceroll. Stores all player scorecards and can determine the winner
+% once over
+% 
+%
+% Created by Koby Taswell on 2/27/2021
+% Last updated by Koby Taswell on 3/11/2021
+%
+% Properties
+%   players - the list of scorecard objects of players in the game
+%   round - the current round in a game, once the game has started, equals 1
+%   turn - the index of the player whose turn it currently is
+%   currentPlayer - scorecard of the current turn's player
+%   currentTopScore - idx of the player with the highest score
+%   allNames - gets 1xN array  of all player names where N is number of players
+%   allScores - gets Nx17 array all player scores where N is number of players
+%   recentlyAddedScore - score and index of the most recently input score
+%
+%Functions
+%   addPlayers(players) - adds a set of player objects, type scorecard, to the list of players
+%   startGame() - starts the game, sets turn and round equal to 1
+%   
+ 
     properties (SetAccess = protected)
         players = scorecard;
         round;
